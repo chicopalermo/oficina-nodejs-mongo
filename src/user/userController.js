@@ -9,7 +9,7 @@ export const userController = {
             const user = await User.create({
                 name,
                 email,
-                password: encrypt(password)
+                password
             });
     
             res.status(201).json({
