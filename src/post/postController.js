@@ -1,20 +1,19 @@
-import User from "../db/models/User.js";
-import { encrypt } from "../utils/crypt.js";
+import Post from "../db/models/Post.js";
 
-export const userController = {
-    createUser: async (req, res) => {
+export const postController = {
+    createPost: async (req, res) => {
         try { 
-            const { name, email, password } = req.body;
+            const { title, content, userId } = req.body;
             
-            const user = await User.create({
-                name,
-                email,
-                password
+            const post = await Post.create({
+                title, 
+                content, 
+                userId
             });
     
             res.status(201).json({
                 message: 'success',
-                payload: user
+                payload: post
             });
         } catch (err) {
             res.status(500).json({
@@ -23,13 +22,13 @@ export const userController = {
             });
         }
     },
-    findUsers: async (req, res) => {
+    findPosts: async (req, res) => {
         try {
-            const users = await User.find();
+            const posts = await Post.find();
 
             res.status(200).json({
                 message: 'success',
-                payload: users
+                payload: posts
             });
         } catch (error) {
             res.status(500).json({
@@ -38,15 +37,15 @@ export const userController = {
             });
         }
     },
-    updateUser: async (req, res) => {
+    updatePost: async (req, res) => {
         try { 
             const { id } = req.params;
-            const { name, email, password } = req.body;
+            const { title, content, userId } = req.body;
 
-            await User.findOneAndUpdate({ _id: id }, {
-                name,
-                email,
-                password
+            await Post.findOneAndUpdate({ _id: id }, {
+                title, 
+                content, 
+                userId
             });
     
             res.status(200).json({
@@ -61,11 +60,11 @@ export const userController = {
         }
     },
 
-    deleteUser: async (req, res) => {
+    deletePost: async (req, res) => {
         try { 
             const { id } = req.params;
-
-            await User.findByIdAndRemove({ _id: id });
+            
+            await Post.findByIdAndRemove({ _id: id });
     
             res.status(200).json({
                 message: 'success',
