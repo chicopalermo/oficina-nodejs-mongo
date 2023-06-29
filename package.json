@@ -1,11 +1,12 @@
 {
   "name": "api-ded",
-  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "build": "rimraf dist && babel src --out-dir dist && node dist/index.js",
+    "start": "nodemon -x npm run build",
+    "dev": "nodemon --exec babel-node src/index.js ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -19,6 +20,11 @@
     "mongoose": "^7.3.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "@babel/cli": "^7.22.5",
+    "@babel/core": "^7.22.5",
+    "@babel/node": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "nodemon": "^2.0.22",
+    "rimraf": "^5.0.1"
   }
 }
